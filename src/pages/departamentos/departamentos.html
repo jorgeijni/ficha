@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Departamentos</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="addData()">
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+    <h2>Lista de Departamentos</h2>
+
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+ 
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+    </div>
+    
+    <ion-item nopadding>
+      <p>
+        <span>KeyDepartamento</span><br>
+      </p>
+      <h3 item-end>
+        Departamento
+      </h3>
+    </ion-item>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let expense of depa; let i=index">
+        <ion-item nopadding>
+          <p>
+            <span>{{expense.KeyDepartamento}}</span><br>
+          </p>
+          <h3 item-end>
+            {{expense.DescripcionDep}}
+          </h3>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="editData(expense.KeyDepartamento)">
+            <ion-icon name="paper"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="deleteData(expense.KeyDepartamento)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+</ion-content>

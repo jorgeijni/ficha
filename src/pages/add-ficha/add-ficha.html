@@ -1,0 +1,616 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Agregar ficha</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h4 text-center>PROYECTO COSECHA DE AGUA EN NICARAGUA</h4>
+  <h4 text-center>DIAGNOSTICO DE FINCA</h4>
+    <ion-segment [(ngModel)]="mymodel">
+      <ion-segment-button value="segment1">
+        <ion-icon name="information-circle"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="segment2">
+        <ion-icon name="body"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="segment3">
+        <img src="assets/imgs/icons8-campo-48.png" width="32" height="32">
+      </ion-segment-button>
+      <ion-segment-button value="segment4">
+        <img src="assets/imgs/icons8-elemento-agua-48.png" width="32" height="32">
+      </ion-segment-button>
+      <ion-segment-button value="segment5">
+        <img src="assets/imgs/icons8-aguas-termales-48.png" width="32" height="32">      
+      </ion-segment-button>
+      <ion-segment-button value="segment6">
+        <img src="assets/imgs/icons8-techumbre-40.png" width="32" height="32">
+      </ion-segment-button>
+      <ion-segment-button value="segment7">
+        <img src="assets/imgs/icons8-sobre-nosotros-40.png" width="32" height="32">
+      </ion-segment-button>
+      <ion-segment-button value="segment8">
+          <img src="assets/imgs/icons8-módulo-40.png" width="32" height="32">
+      </ion-segment-button>
+      <ion-segment-button value="segment9">
+          <img src="assets/imgs/icons8-cámara-compacta-48.png" width="32" height="32">
+      </ion-segment-button>
+      <ion-segment-button value="segment10">
+          <img src="assets/imgs/icons8-nuevo-documento-48.png" width="32" height="32">
+      </ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="mymodel">
+      <ion-list *ngSwitchCase="'segment1'">
+        <ion-item text-center>
+          INFORMACION GENERAL DE <br>
+          LOCALIZACIÓN DE LA FINCA <br>
+        </ion-item>
+
+        <ion-item block> <ion-label block>1. Departamento:</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-select  [(ngModel)]="ficha.Pregunta1" placeholder="Departamento" (ionChange)="ObtenerMunicipios($event)" >
+            <ion-option *ngFor="let depa of departamento" [value] = "depa.KeyDepartamento" >{{depa.DescripcionDep}}</ion-option>
+          </ion-select>
+        </ion-item> 
+
+        <ion-item block *ngIf="ficha.Pregunta1!=0"> <ion-label>2. Municipio:</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta1!=0">         
+          <ion-select  [(ngModel)]="ficha.Pregunta2" placeholder="Municipio" >
+            <ion-option *ngFor="let mun of municipio" [value] = "mun.KeyMunicipio" >{{mun.DescripcionMun}}</ion-option>
+          </ion-select>
+        </ion-item> 
+
+        <ion-item block> <ion-label>3. Comunidad:</ion-label> </ion-item>
+        <ion-item>          
+          <ion-input type="text" min="1" max="100" [(ngModel)]="ficha.Pregunta3" placeholder="Comunidad"></ion-input>
+        </ion-item>
+      
+        <ion-item> block <ion-label>4. Nombre Técnico:</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-input type="text" min="1" max="100" [(ngModel)]="ficha.Pregunta4" placeholder="Técnico" readonly="true" ></ion-input>
+        </ion-item>
+      
+        <ion-item> block <ion-label>5. Fecha:</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-input type="date" [(ngModel)]="ficha.Pregunta5" placeholder="Fecha"></ion-input>
+        </ion-item>
+        
+        <ion-item block> <ion-label>6. Dirección</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-input type="textarea" [(ngModel)]="ficha.Pregunta6" placeholder="Dirección"></ion-input>
+        </ion-item>
+      
+        <ion-item block> <ion-label>7. Coordenadas:</ion-label> </ion-item>
+        <ion-item block>         
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta7X" placeholder="UTMX"></ion-input>
+        </ion-item>
+
+        <ion-item block>        
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta7Y" placeholder="UTMY"></ion-input>
+        </ion-item>
+      </ion-list>
+      
+      <ion-list *ngSwitchCase="'segment2'">
+        <ion-item text-center block>
+          INFORMACION DEL PRODUCTOR (A) <br>
+        </ion-item>
+
+        <ion-item block> <ion-label>8. Nombre Productor</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-input type="text" min="1" max="150" [(ngModel)]="ficha.Pregunta8" placeholder="Nombre Productor"></ion-input>
+        </ion-item>
+
+        <ion-item block> <ion-label>9. Tipo de Documento</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Pregunta9" placeholder="Tipo de Documento" >
+            <ion-option *ngFor="let preg of Pregunta9 " [value] = "preg.value" >{{preg.label}}</ion-option>         
+          </ion-select>
+        </ion-item> 
+
+        <ion-item block *ngIf="ficha.Pregunta9!=''">  <ion-label>Número de Documento</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta9!=''">         
+          <ion-input type="text" min="1" max="16" [(ngModel)]="ficha.Pregunta9A" placeholder="Número de Documento"></ion-input>    
+        </ion-item>
+
+        <ion-item block>  <ion-label>10. Edad</ion-label> </ion-item>
+        <ion-item block>         
+          <ion-input type="number" [(ngModel)]="ficha.Pregunta10" placeholder="Edad"></ion-input>
+        </ion-item>
+      
+        <ion-item block> <ion-label>11. Sexo</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Pregunta11" placeholder="Eliga un Sexo" >
+            <ion-option *ngFor="let preg of Pregunta11" [value] = "preg.value" >{{preg.label}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item block>  <ion-label>12. N° de personas en el hogar</ion-label> </ion-item>
+        <ion-item block>         
+          <ion-input type="number" min="1" max="2" [(ngModel)]="ficha.Pregunta12" placeholder="N° de personas en el hogar"></ion-input>    
+        </ion-item>   
+
+        <ion-item block>  <ion-label>13. Número de teléfono</ion-label> </ion-item>
+        <ion-item block>
+          <ion-input type="number" [(ngModel)]="ficha.Pregunta13" placeholder="Claro"></ion-input>     
+        </ion-item>   
+        <ion-item block>
+          <ion-input type="number" [(ngModel)]="ficha.Pregunta13A" placeholder="Movistar"></ion-input>    
+        </ion-item>   
+              
+        <ion-item block>  <ion-label>14. Área de la finca</ion-label> </ion-item>
+        <ion-item block>         
+          <ion-input type="number" [(ngModel)]="ficha.Pregunta14" placeholder="Área de la finca (mz)"></ion-input>    
+        </ion-item>   
+
+        <ion-item block>  <ion-label>15. Tenencia de la tierra</ion-label> </ion-item>
+        <ion-item block>         
+          <ion-select [(ngModel)]="ficha.Pregunta15" placeholder="Tenencia de la tierra">
+            <ion-option *ngFor="let preg of Pregunta15" [value] = "preg.value" >{{preg.label}}</ion-option>
+          </ion-select>
+        </ion-item>  
+        
+        <ion-item block *ngIf="ficha.Pregunta15=='Otra Forma de Tenencia'">
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta15A" placeholder="Especifique"></ion-input>    
+        </ion-item>
+      
+        <ion-item block>  <ion-label>16. Principal fuente de ingreso</ion-label> </ion-item>
+        <ion-item block>         
+          <ion-select [(ngModel)]="ficha.Pregunta16" placeholder="Principal fuente de ingreso" >
+            <ion-option *ngFor="let preg of Pregunta16" [value] = "preg.value" >{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>     
+      
+        <ion-item block *ngIf="ficha.Pregunta16=='Otro'">
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta16A" placeholder="Especifique"></ion-input>    
+        </ion-item>
+      
+        <ion-item block> <ion-label>17. Fuentes de agua en la propiedad </ion-label> </ion-item>
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Pregunta17" multiple placeholder="Fuentes de agua en la propiedad" >       
+            <ion-option *ngFor="let preg of Pregunta17" [value] = "preg.value" >{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+      </ion-list>
+      
+      <ion-list *ngSwitchCase="'segment3'">
+        <ion-item text-center block>
+          PRINCIPALES ACTIVIDADES <br>
+          AGROPECUARIAS <br>
+        </ion-item>
+        
+        <ion-item block> 
+          <ion-label>18. Usos actuales del suelo según tipo de uso en la finca (mz)</ion-label>
+        </ion-item>      
+
+        <ion-item block>
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta18" placeholder="Agrícola"></ion-input>     
+        </ion-item>
+        <ion-item> block 
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta18A" placeholder="Pecuario"></ion-input>    
+        </ion-item>
+        <ion-item block>
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta18B" placeholder="Forestal"></ion-input>          
+        </ion-item>
+        <ion-item block>   
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta18C" placeholder="Patio"></ion-input>        
+        </ion-item>
+        <ion-item block>  
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta18D" placeholder="Otro"></ion-input>      
+        </ion-item>
+        
+        <ion-item> block
+          <ion-label>19. Número de animales domésticos en la finca</ion-label>
+        </ion-item>      
+        <ion-item block>
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19" placeholder="Bovino"></ion-input>        
+        </ion-item>
+        <ion-item block> 
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19A" placeholder="Equino"></ion-input>      
+        </ion-item>
+        <ion-item block>   
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19B" placeholder="Aves"></ion-input>     
+        </ion-item>
+        <ion-item block>    
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19C" placeholder="Porcino"></ion-input>    
+        </ion-item>
+        <ion-item block>  
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19D" placeholder="Caprino"></ion-input>    
+        </ion-item>
+        <ion-item block>   
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19E" placeholder="Colmenas"></ion-input>  
+        </ion-item>
+        <ion-item block>   
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta19F" placeholder="Peces"></ion-input>    
+        </ion-item>
+
+        <ion-item block> <ion-label>20. Experiencia en uso de riego</ion-label> </ion-item>
+        <ion-item block>        
+          <ion-select [(ngModel)]="ficha.Pregunta20" placeholder="Experiencia en uso de riego" >
+            <ion-option *ngFor="let preg of Pregunta20" [value] = "preg.value" >{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>       
+
+        <ion-item block *ngIf="ficha.Pregunta20=='Si'">
+          <ion-label>21.Tipo de riego utilizados m2</ion-label>
+        </ion-item>    
+        <ion-item block *ngIf="ficha.Pregunta20=='Si'">
+            <ion-input type="text" [(ngModel)]="ficha.Pregunta21" placeholder="Por Inundación"></ion-input>            
+        </ion-item>     
+        <ion-item block *ngIf="ficha.Pregunta20=='Si'">   
+            <ion-input type="text" [(ngModel)]="ficha.Pregunta21A" placeholder="Aspersión"></ion-input>         
+        </ion-item>     
+        <ion-item block *ngIf="ficha.Pregunta20=='Si'">
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta21B" placeholder="Goteo"></ion-input>    
+        </ion-item>     
+        <ion-item block *ngIf="ficha.Pregunta20=='Si'">
+            <ion-input type="text" [(ngModel)]="ficha.Pregunta21C" placeholder="Artesanal"></ion-input>   
+        </ion-item>     
+        
+        <ion-item block> <ion-label>22. Participación en organizaciones</ion-label> </ion-item>
+        <ion-item block>            
+          <ion-select [(ngModel)]="ficha.Pregunta22" placeholder="Participación en organizaciones" >
+            <ion-option *ngFor="let preg of Pregunta22" [value] = "preg.value" >{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>       
+
+        <ion-item block> <ion-label>23. En qué temas trabaja o recibe apoyo</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-select multiple [(ngModel)]="ficha.Pregunta23" placeholder="En qué temas trabaja" >
+            <ion-option *ngFor="let preg of Pregunta23" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+      </ion-list>     
+
+      <ion-list *ngSwitchCase="'segment4'">
+        <ion-item block text-center>
+          INFORMACION DE SITIO POTENCIAL <br>
+          DE COSECHA DE AGUA DE ESCORRENTIA <br>
+        </ion-item>
+
+        <ion-item block> <ion-label>24. Dispone de un área para establecer una obra de captación de escorrentía</ion-label> </ion-item>
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Pregunta24" placeholder="Dispone de un área para establecer una obra de captación de escorrentía" >
+            <ion-option *ngFor="let preg of Pregunta20" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>25.	Textura del suelo</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta25" placeholder="Textura del suelo" >
+            <ion-option *ngFor="let preg of Pregunta25" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>26. Pendiente del suelo</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta26" placeholder="Pendiente del suelo" >
+            <ion-option *ngFor="let preg of Pregunta26" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>27. Uso actual del suelo en el sitio de construcción de la obra</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta27" multiple placeholder="Uso actual del suelo en el sitio de construcción de la obra" >
+            <ion-option *ngFor="let preg of Pregunta27" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>28. Dispone de área con potencial para hacer riego</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta28" placeholder="Dispone de área con potencial para hacer riego" >
+            <ion-option *ngFor="let preg of Pregunta20" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si' && ficha.Pregunta28=='Si'" > <ion-label>29. Ubicación del área de riego</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si' && ficha.Pregunta28=='Si'" >          
+          <ion-select [(ngModel)]="ficha.Pregunta29" placeholder="Ubicación del área de riego" >
+            <ion-option *ngFor="let preg of Pregunta29" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item block text-center *ngIf="ficha.Pregunta24=='Si'">
+          <h3><p>Para evaluar el área de captación</p></h3> <br>
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>30. Tamaño del área de captación</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">         
+          <ion-select [(ngModel)]="ficha.Pregunta30" placeholder="Tamaño del área de captación" >
+            <ion-option *ngFor="let preg of Pregunta30" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>31. Tipo de escorrentía superficial de entrada de la obra</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> 
+          <ion-select [(ngModel)]="ficha.Pregunta31" placeholder="Tipo de escorrentía superficial de entrada de la obra" >
+            <ion-option *ngFor="let preg of Pregunta31" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>32. Uso actual del suelo en el área de captación</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta33" multiple placeholder="Uso actual del suelo en el área de captación" >
+            <ion-option *ngFor="let preg of Pregunta27" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block text-center *ngIf="ficha.Pregunta24=='Si'">
+          <h3><p>Para evaluar factores de riesgo</p></h3> <br>
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>33.	Exposición de viviendas</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta33" placeholder="Exposición de viviendas" >
+            <ion-option *ngFor="let preg of Pregunta33" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">  <ion-label>34. Factores de Riesgo</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">         
+          <ion-select [(ngModel)]="ficha.Pregunta34" multiple placeholder="Factores de riesgo" >
+            <ion-option *ngFor="let preg of Pregunta34" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item text-center *ngIf="ficha.Pregunta24=='Si'" block>
+          <h3><p>Uso propuesto del agua</p></h3> <br>
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label block>35. Uso propuesto del agua que captará</ion-label></ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select block [(ngModel)]="ficha.Pregunta35" multiple placeholder="Uso propuesto del agua que captará" >
+            <ion-option *ngFor="let preg of Pregunta27" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block text-center *ngIf="ficha.Pregunta24=='Si'">
+          <h3><p>Tipo de obra propuesta y entrada de maquinaria</p></h3> <br>
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"> <ion-label>36. Tipo de obra</ion-label></ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta36" placeholder="Tipo de obra" >
+            <ion-option *ngFor="let preg of Pregunta36" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'"><ion-label>37. Accesibilidad para maquinaria (N/A si es construida a mano)</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta24=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta37" placeholder="Accesibilidad para maquinaria" >
+            <ion-option *ngFor="let preg of Pregunta37" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'segment5'">
+        <ion-item block text-center>
+          INFORMACION DEL SITIO PARA <br>
+          COSECHA DE AGUA DE MANANTIAL <br>
+        </ion-item>
+
+        <ion-item block> <ion-label>38.	Dispone de un Manantial para una obra de Captación</ion-label>  </ion-item> 
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Pregunta38" placeholder="Dispone de un manantial para una obra de captación" >
+            <ion-option *ngFor="let preg of Pregunta20" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+      
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'"> <ion-label>39. Temporalidad del manantial que dispone</ion-label></ion-item>
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta39" placeholder="Tipo de manantial que dispone" >
+            <ion-option *ngFor="let preg of Pregunta39" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'"><ion-label>40.	Tamaño del área de captación</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta40" placeholder="Tamaño del área de captación" >
+            <ion-option *ngFor="let preg of Pregunta40" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'"><ion-label>41.	Uso del suelo en área de captación</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta41" multiple placeholder="Uso del suelo en área de captación" >
+            <ion-option *ngFor="let preg of Pregunta27" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'"><ion-label>42.	Tipo de obra</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta42" placeholder="Tipo de obra" >
+            <ion-option *ngFor="let preg of Pregunta42" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta38=='Si' && ficha.Pregunta42=='Otros' ">
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta42A" placeholder="Especifique"></ion-input> 
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'"> <ion-label>43.	Uso propuesto del agua que captará</ion-label></ion-item>
+        <ion-item block *ngIf="ficha.Pregunta38=='Si'">            
+          <ion-select [(ngModel)]="ficha.Pregunta43" multiple placeholder="Uso propuesto del agua que captará" >
+            <ion-option *ngFor="let preg of Pregunta27" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'segment6'">
+        <ion-item block text-center>
+          INFORMACION DEL SITIO PARA <br>
+          COSECHA DE AGUA DE TECHO<br>
+        </ion-item>
+
+        <ion-item block> <ion-label>44.	Dispone de un área de techo para captar agua de lluvia</ion-label>  </ion-item> 
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Pregunta44" placeholder="Dispone de un área de techo para captar agua de lluvia" >
+            <ion-option *ngFor="let preg of Pregunta20" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'"><ion-label>45. Área Techada</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta45" placeholder="Área Techada" >
+            <ion-option *ngFor="let preg of Pregunta45" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'"><ion-label>46.	Tipo de Techo</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'">       
+          <ion-select [(ngModel)]="ficha.Pregunta46" placeholder="Tipo de Techo" >
+            <ion-option *ngFor="let preg of Pregunta46" [value] = "preg.value">{{preg.value}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'"> <ion-label>47. Calidad del Techo</ion-label> </ion-item>
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta47" placeholder="Calidad del Techo" >
+            <ion-option *ngFor="let preg of Pregunta47" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'"> <ion-label>48. Tipo de obra de almacenamiento del agua</ion-label></ion-item>
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta48" placeholder="Tipo de obra de almacenamiento del agua" >
+            <ion-option *ngFor="let preg of Pregunta48" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta44=='Si' && ficha.Pregunta48=='Otros' ">
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta48A" placeholder="Especifique"></ion-input> 
+        </ion-item>
+
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'"> <ion-label>49.	Uso propuesto del agua de captación</ion-label>  </ion-item> 
+        <ion-item block *ngIf="ficha.Pregunta44=='Si'">          
+          <ion-select [(ngModel)]="ficha.Pregunta49" placeholder="Uso propuesto del agua de captación" >
+            <ion-option *ngFor="let preg of Pregunta49" [value] = "preg.value">{{preg.label}}</ion-option>
+          </ion-select>    
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'segment7'">
+        <ion-item block text-center>
+          OPCIONES DE CONTRAPARTIDA E <br>
+          INFORMACIÓN ADICIONAL<br>
+        </ion-item>
+
+        <ion-item block>  <ion-label>50. Cuál es el tipo de contrapartida que Usted dispone</ion-label>  </ion-item> 
+        <ion-item block>         
+          <ion-select [(ngModel)]="ficha.Pregunta50" multiple placeholder="Cuál es el tipo de contrapartida que Usted dispone" >
+            <ion-option *ngFor="let preg of Pregunta50" [value] = "preg.value">{{preg.label}}</ion-option>       
+          </ion-select>    
+        </ion-item>
+
+        <ion-item block> <ion-label>Cantidad en Córdobas</ion-label>  </ion-item> 
+        <ion-item block>          
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta50A" placeholder="Si Marca Dinero Especifique la Cantidad en Córdobas"></ion-input> 
+        </ion-item>
+        
+        <ion-item block> <ion-label>Otras Especifique</ion-label>  </ion-item> 
+        <ion-item block>          
+          <ion-input type="text" [(ngModel)]="ficha.Pregunta50B" placeholder="Si Marca Otras Especifique"></ion-input> 
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'segment8'">
+        <ion-item block text-center>
+          OTROS ELEMENTOS DE ANÁLISIS<br>
+        </ion-item>
+
+        <h5 block>Levantamiento de información por <br>
+          observación  del técnico y <br>
+          conversación informal con el productor</h5>
+
+        <ion-item block> <ion-label>Movilidad</ion-label>  </ion-item> 
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Observable1" placeholder="Movilidad" >
+            <ion-option *ngFor="let obs of Observable1" [value] = "obs.value">{{obs.label}}</ion-option>      
+          </ion-select>     
+        </ion-item>
+
+        <ion-item block> <ion-label>Vivienda</ion-label> </ion-item> 
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Observable2" placeholder="Vivienda" >
+            <ion-option *ngFor="let obs of Observable2" [value] = "obs.value">{{obs.label}}</ion-option>     
+          </ion-select>    
+        </ion-item>
+      
+        <ion-item block> <ion-label>Manejo de la finca</ion-label> </ion-item> 
+        <ion-item block>          
+          <ion-select [(ngModel)]="ficha.Observable3" placeholder="Manejo de la finca" >
+            <ion-option *ngFor="let obs of Observable2" [value] = "obs.value">{{obs.label}}</ion-option>       
+          </ion-select>    
+        </ion-item>
+        
+        <ion-item block>  <ion-label>Aperos para el trabajo en la finca (solo para aquellos en buen estado)</ion-label> </ion-item> 
+        <ion-item block>         
+          <ion-select block multiple [(ngModel)]="ficha.Observable4" placeholder="Aperos para el trabajo en la finca" >
+            <ion-option *ngFor="let obs of Observable4" [value] = "obs.value">{{obs.label}}</ion-option>    
+          </ion-select>    
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'segment9'">
+        <ion-item block text-center>
+          FOTOS DEL O LOS SITIOS<br>
+        </ion-item>
+          
+        <ion-item block>
+          <button ion-button block (click)="getPicture1()">Foto Vivienda</button>
+        </ion-item>
+        
+        <ion-item block>
+          <img [src]="this.ficha.Foto1" *ngIf="this.ficha.Foto1" /><br>
+        </ion-item>
+
+        <ion-item block>
+          <button ion-button block (click)="getPicture2()">Foto Panorámica de la micro cuenca</button>
+        </ion-item>
+        <ion-item block>
+          <img [src]="this.ficha.Foto2" *ngIf="this.ficha.Foto2" /><br>
+        </ion-item>
+
+        <ion-item block>
+          <button ion-button block (click)="getPicture3()">Foto Área del sitio de la obra</button>
+        </ion-item>
+        <ion-item block>
+          <img [src]="this.ficha.Foto3" *ngIf="this.ficha.Foto3" /><br>
+        </ion-item>
+
+        <ion-item block>
+          <button ion-button block (click)="getPicture4()">Foto Área propuesta de uso del agua</button>
+        </ion-item>
+      </ion-list>
+      <ion-item block>
+        <img [src]="this.ficha.Foto4" *ngIf="this.ficha.Foto4" /><br>
+      </ion-item>
+
+      <ion-list *ngSwitchCase="'segment10'">
+        <ion-item block text-center>
+          VALORACIÓN DESCRIPTIVA <br>
+          DEL PRODUCTOR (A)<br>
+        </ion-item>
+        <ion-item block>
+          <ion-label position="floating" class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            Aquí se justifica por qué se propone <br>
+            o no como beneficiario al productor <br>
+            o productora visitada (incluye la <br>
+            valoración cualitativa en cuanto a: <br>
+            motivación y  disposición a trabajar, <br>
+            experiencia, disponibilidad de <br>
+            recursos, ubicación con respecto a <br>
+            otros productores. (Máximo 500 caracteres)
+          </ion-label>
+        </ion-item>
+
+        <ion-item block> <ion-label >Valoración</ion-label> </ion-item> 
+        <ion-item block>        
+          <ion-textarea rows="8" [(ngModel)]="ficha.Valoracion" placeholder="Valoración"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </div>
+  <br>
+  <button ion-button color="primary" (click)="saveData()" block> Save Data</button>
+
+</ion-content>

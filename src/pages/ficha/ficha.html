@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Ficha</ion-title>    
+      <ion-buttons end>
+        <button ion-button icon-only (click)="addData()">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <h2>Lista de Fichas</h2>
+  
+      <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+   
+      <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+      </div>
+      
+      <ion-item nopadding>
+        <p>
+          <span>Nombre Productor</span><br>
+        </p>
+       
+      </ion-item>
+  
+      <ion-list>
+        <ion-item-sliding *ngFor="let ficha of Fichas; let i=index">
+          <ion-item nopadding>
+            <p>
+              <span>{{ficha.NombreProductor}}</span><br>
+            </p>
+      
+          </ion-item>
+          <ion-item-options side="right">
+            <button ion-button color="primary" (click)="editData(ficha.KeyFicha)">
+              <ion-icon name="paper"></ion-icon>
+            </button>
+            <button ion-button color="danger" (click)="deleteData(ficha.KeyFicha)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+  </ion-content>
+  

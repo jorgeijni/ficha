@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Municipios</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="addData()">
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+    <h2>Lista de Municipios</h2>
+
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+ 
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+    </div>
+    
+    <ion-list>
+      <ion-item nopadding>    
+        <p><span>KeyMunicipio</span> <br></p>        
+        <h3 text-center>Departamento</h3>
+        <h3 text-right>
+          Municipio
+        </h3>
+      </ion-item>
+
+      <ion-item-sliding *ngFor="let mun of muni; let i=index">
+        <ion-item nopadding>
+          <p><span>{{mun.KeyMunicipio}}</span><br></p>
+          <h3 text-center>{{mun.KeyDepartamento}}</h3>
+          <h3 text-right>
+            {{mun.DescripcionMun}}
+          </h3>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="editData(mun.KeyMunicipio)">
+            <ion-icon name="paper"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="deleteData(mun.KeyMunicipio)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+</ion-content>

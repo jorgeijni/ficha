@@ -1,0 +1,27 @@
+<!--
+  Generated template for the EditTecnicoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Editar técnico</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h2>Editar Técnico</h2>
+    <form (ngSubmit)="updateData()">
+      <ion-item>
+        <ion-label>Código</ion-label>
+        <ion-input type="text" placeholder="Código" [(ngModel)]="data.KeyTecnico" name="KeyTecnico" maxlength="5" (ionChange)="setCodigoUpperCase(data.KeyTecnico)" readonly=true></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>Nombre</ion-label>
+        <ion-input type="text" placeholder="Nombre" [(ngModel)]="data.Name" name="Name" maxlength="100" (ionChange)="setNameUpperCase(data.Name)" required="" ></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Update Data</button>
+    </form>
+</ion-content>

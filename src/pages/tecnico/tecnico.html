@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Tecnico</ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="addData()">
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+    <h2>Datos del Encuestador</h2>
+
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+ 
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+    </div>
+    
+    <ion-item nopadding>
+      <p>
+        <span>KeyTecnico</span><br>
+      </p>
+      <h3 item-end>
+        Técnico 
+      </h3>
+    </ion-item>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let tex of tecnico; let i=index">
+        <ion-item nopadding>
+          <p>
+            <span>{{tex.KeyTecnico}}</span><br>
+          </p>
+          <h3 item-end>
+            {{tex.Name}}
+          </h3>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="editData(tex.KeyTecnico)">
+            <ion-icon name="paper"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="deleteData(tex.KeyTecnico)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+</ion-content>
